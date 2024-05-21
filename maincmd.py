@@ -15,7 +15,7 @@ def main():
     # optional arguments for operation
     parser.add_argument("-n", "--noshow", action="store_true", help="Stops the display of the image.")
     parser.add_argument("--angle", type=int, help="The angle of rotation in degrees (only for rotate operation).")
-    parser.add_argument("--coords", nargs=4, type=list, help="The coordinates of the crop region in the form [x_start, x_end, y_start, y_end] (only for crop operation).")
+    parser.add_argument("--coords", nargs=4, help="The coordinates of the crop region in the form [x_start, x_end, y_start, y_end] (only for crop operation).")
     parser.add_argument("--scale", type=float, help="The scaling factor (only for resize operation).")    
 
     # parse arguments
@@ -31,7 +31,7 @@ def main():
         if len(args.coords) != 4:
             raise ValueError("Crop argument must have 4 values.")
         else:
-            new_image = crop.image_crop(image, args.coords[0], args.coords[1], args.coords[2], args.coords[3])
+            new_image = crop.image_crop(image, int(args.coords[0]), int(args.coords[1]), int(args.coords[2]), int(args.coords[3]))
     elif args.operation == "resize":
         if args.scale <= 0:
             raise ValueError("Scale factor must be greater than 0.")
